@@ -10,21 +10,7 @@ import pandas as pd
 from geopy.distance import distance
 from pymongo import MongoClient
 
-
-# # Business Scenario
-
-# Ace Hotel is a chain of hotels, it operates hotel in multiple big cities across the globe. We choose 3 locations
-# in the US and collect popular events happened nearby.
-# 
-# These events are collected from eventbrite and ticketmaster:
-# Events from ticketmaster are usually large-scale, popular events that
-# could be used to drive price decisions in the future;
-# Events from eventbrite are usually local events that could be used
-# to provide useful information for the coming tourists.
-# 
-# # Work flow:
-# 
-# for each city, we do the following:
+# Work flow for each city:
 # 1. Find the geo coordinate using positionstack api;
 # 2. Use the geo coordinate to collect future events nearby from ticketmaster api;
 # 3. Collect local events from eventbrite in a given date range for current guests;
@@ -32,7 +18,6 @@ from pymongo import MongoClient
 # Finally, we store the events in 2 separate Mongo DB collections
 
 # This function finds the geo coordinate of the hotel using positionstack api
-
 def get_geo(address_text):
     search_url = "http://api.positionstack.com/v1/forward?access_key=[access_key]&query="
     url = search_url + address_text
@@ -47,12 +32,11 @@ def get_geo(address_text):
 
 # These 2 functions use ticketmaster api to scrape future large events:
 # tm_json_cleaning clean the json data;
-#
 
-# * `latitude` and `longitude`: location of the hotel;
-# * `radius`: max distance between the address of the events and the hotel.
-# * `startdate`: events that happen after this date.(format: yyyy-mm-dd)
-# * `size`: how many top events we want to extract from the website
+# `latitude` and `longitude`: location of the hotel;
+# `radius`: max distance between the address of the events and the hotel.
+# `startdate`: events that happen after this date.(format: yyyy-mm-dd)
+# `size`: how many top events we want to extract from the website
 
 def tm_json_cleaning(Json_obj):
     # Get event names
