@@ -10,9 +10,9 @@ With events in ticketmaster, we can know in advance whether there will be huge e
 
 # How it works
 
-for each city, we do the following:
-1. Find the geo coordinate using positionstack api;
-2. Use the geo coordinate to collect future events nearby from ticketmaster api;
+For each city, we
+1. Find the geo coordinate using [positionstack api](https://positionstack.com/documentation);
+2. Use the geo coordinate to collect future events nearby from [ticketmaster api](https://developer.ticketmaster.com/);
 3. Collect local events from eventbrite in a given date range for current guests;
 
 Finally, we store the events in 2 separate Mongo DB collections, in the real world, we can make this a regular procedure every week to update our event database.
