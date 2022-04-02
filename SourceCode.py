@@ -34,7 +34,7 @@ from pymongo import MongoClient
 # This function finds the geo coordinate of the hotel using positionstack api
 
 def get_geo(address_text):
-    search_url = "http://api.positionstack.com/v1/forward?access_key=33c4e426fa948d434e3f34295a0e90eb&query="
+    search_url = "http://api.positionstack.com/v1/forward?access_key=[access_key]&query="
     url = search_url + address_text
     loc_page = requests.get(url).text
     time.sleep(3)
@@ -132,7 +132,7 @@ def scrape_tm_events(latitude, longitude, radius, startdate, size):
     # Create url
     targeturl = "https://app.ticketmaster.com/discovery/v2/events.json?" \
                 "includeTBA=no&&classificationId=-KZFzniwnSyZfZ7v7na"
-    apikey = "yPLAH12O3Ax34ph2caBAPY3saxEkvcsI"
+    apikey = "Yourapikey"
     latlong = str(latitude) + "," + str(longitude)
     query_params = "&latlong=" + latlong + \
                    "&radius=" + str(radius) + \
@@ -250,14 +250,14 @@ pprint(future_events_json[:3])
 pprint(local_events_json[:3])
 
 # Insert json objects into MongoDB
-#
-# client = MongoClient(
-#     "mongodb+srv://dbYichao:JHOmeH7yoMvSOs1Z@cluster0.xdef3.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
-# )
-#
-# db = client.events
-# eb_collection = db['eventbrite']
-# tm_collection = db['ticketmaster']
-#
-# eb_collection.insert_many(local_events_json)
-# tm_collection.insert_many(future_events_json)
+
+client = MongoClient(
+    "mongodb+srv://dbYichao:JHOmeH7yoMvSOs1Z@cluster0.xdef3.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+)
+
+db = client.events
+eb_collection = db['eventbrite']
+tm_collection = db['ticketmaster']
+
+eb_collection.insert_many(local_events_json)
+tm_collection.insert_many(future_events_json)
